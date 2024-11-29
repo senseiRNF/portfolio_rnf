@@ -14,6 +14,6 @@ class StaticVariables {
     error: Colors.red,
     onError: Colors.white,
     surface: Colors.white,
-    onSurface: Colors.black87,
+    onSurface: Colors.black,
   );
 }

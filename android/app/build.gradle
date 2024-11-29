@@ -5,18 +5,65 @@ plugins {
     id "dev.flutter.flutter-gradle-plugin"
 }
 
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader("UTF-8") { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterVersionCode = localProperties.getProperty("flutter.versionCode")
+if (flutterVersionCode == null) {
+    flutterVersionCode = "1"
+}
+
+def flutterVersionName = localProperties.getProperty("flutter.versionName")
+if (flutterVersionName == null) {
+    flutterVersionName = "1.0"
+}
+
+def flutterCompileSdkVersion = localProperties.getProperty("flutter.compileSdkVersion")
+if (flutterCompileSdkVersion == null) {
+    flutterCompileSdkVersion = "34"
+}
+
+def flutterTargetSdkVersion = localProperties.getProperty("flutter.targetSdkVersion")
+if (flutterTargetSdkVersion == null) {
+    flutterTargetSdkVersion = "34"
+}
+
+def flutterMinSdkVersion = localProperties.getProperty("flutter.minSdkVersion")
+if (flutterMinSdkVersion == null) {
+    flutterMinSdkVersion = "26"
+}
+
+def flutterNdkVersion = localProperties.getProperty("flutter.ndkVersion")
+if (flutterNdkVersion == null) {
+    flutterNdkVersion = "27.0.12077973"
+}
+
 android {
     namespace = "com.enformabhinneka.portfolio_rnf"
-    compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    compileSdk = flutterCompileSdkVersion.toInteger()
+    ndkVersion = flutterNdkVersion
+
+    //    compileOptions {
+    //        sourceCompatibility = JavaVersion.VERSION_1_8
+    //        targetCompatibility = JavaVersion.VERSION_1_8
+    //    }
+    //
+    //    kotlinOptions {
+    //        jvmTarget = JavaVersion.VERSION_1_8
+    //    }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8
+        jvmTarget = 17
     }
 
     defaultConfig {
@@ -24,9 +71,9 @@ android {
         applicationId = "com.enformabhinneka.portfolio_rnf"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
-        targetSdk = flutter.targetSdkVersion
-        versionCode = flutter.versionCode
+        minSdk = flutterMinSdkVersion.toInteger()
+        targetSdk = flutterTargetSdkVersion.toInteger()
+        versionCode = flutterVersionCode.toInteger()
         versionName = flutter.versionName
     }
 

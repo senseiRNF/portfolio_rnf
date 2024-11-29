@@ -1,0 +1,4 @@
+enum DirectionalType {
+  next,
+  previous,
+}
