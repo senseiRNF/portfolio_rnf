@@ -20,7 +20,7 @@ class PortfolioRNF extends StatelessWidget {
       title: 'RNF Portfolio',
       theme: ThemeData(
         colorScheme: StaticVariables.customColorScheme,
-        fontFamily: "Montserrat",
+        fontFamily: "OpenSans",
         useMaterial3: false,
       ),
       routes: {

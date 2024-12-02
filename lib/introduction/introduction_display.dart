@@ -20,51 +20,104 @@ class IntroductionDisplay extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: core.introductionCardList[core.introductionIndex].showCard(),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    core.introductionCardList[core.introductionIndex].showCard(),
+                  ],
+                ),
               ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 core.introductionIndex != 0 ?
-                InkWell(
-                  onTap: () => core.onChangeIntroductionIndex(
-                    type: DirectionalType.previous,
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 10.0,
                   ),
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width / 3,
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: 10.0,
-                      ),
-                      child: Text(
-                        "Kembali",
-                        textAlign: TextAlign.center,
+                  child: InkWell(
+                    onTap: () => core.onChangeIntroductionIndex(
+                      type: DirectionalType.previous,
+                    ),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width / 3,
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: 10.0,
+                        ),
+                        child: Text(
+                          "Kembali",
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            color: Colors.white,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ),
                   ),
                 ) :
                 const Material(),
                 core.introductionIndex < core.introductionCardList.length - 1 ?
-                InkWell(
-                  onTap: () => core.onChangeIntroductionIndex(
-                    type: DirectionalType.next,
+                Padding(
+                  padding: const EdgeInsets.only(
+                    right: 10.0,
                   ),
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width / 3,
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: 10.0,
-                      ),
-                      child: Text(
-                        "Lanjut",
-                        textAlign: TextAlign.center,
+                  child: InkWell(
+                    onTap: () => core.onChangeIntroductionIndex(
+                      type: DirectionalType.next,
+                    ),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width / 3,
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: 10.0,
+                        ),
+                        child: Text(
+                          "Lanjut",
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            color: Colors.white,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ),
                   ),
                 ) :
                 const Material(),
               ],
+            ),
+            SizedBox(
+              height: 50.0,
+              child: ListView.separated(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                itemCount: core.introductionCardList.length,
+                separatorBuilder: (separatorContext, separatorIndex) {
+                  return const SizedBox(
+                    width: 10.0,
+                  );
+                },
+                itemBuilder: (dotContext, dotIndex) {
+                  return Container(
+                    width: 20.0,
+                    height: 20.0,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.white,
+                      ),
+                      color: core.introductionIndex == dotIndex
+                          ? Colors.white
+                          : Theme.of(context).colorScheme.primary,
+                      shape: BoxShape.circle,
+                    ),
+                  );
+                },
+              ),
             ),
           ],
         ),
